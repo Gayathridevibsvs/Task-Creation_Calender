@@ -92,11 +92,9 @@ body{
 .calendar-grid{
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  /* variable number of rows; we handle weekday row + day rows */
   gap:1px;
   background: rgba(255,255,255,0.03);
   position:relative;
-  /* we will let grid auto rows be 88px (day height) */
   grid-auto-rows: 88px;
   border-radius:8px;
   overflow:hidden;
@@ -114,7 +112,7 @@ body{
   justify-content:center;
 }
 
-/* day cells (these come right after weekday headers in the grid children) */
+/* day cells */
 .day-cell{
   background: #fff;
   color:#222;
@@ -133,12 +131,12 @@ body{
   font-weight:600;
 }
 
-/* selection highlight for drag-to-create */
+/* selection highlight */
 .day-cell.selected{
   background: linear-gradient(180deg, rgba(74,144,226,0.12), rgba(74,144,226,0.06));
 }
 
-/* task segment (placed as a grid child over day cells) */
+/* task segment */
 .task-seg{
   border-radius:8px;
   padding:6px 10px;
@@ -153,7 +151,6 @@ body{
   margin:6px 6px;
 }
 
-/* The visible area inside task, for text */
 .task-content{
   width:100%;
   display:flex;
@@ -162,7 +159,6 @@ body{
   position:relative;
 }
 
-/* name */
 .task-name{
   white-space:nowrap;
   overflow:hidden;
@@ -235,3 +231,24 @@ body{
 
 /* small helpers */
 .ghost { opacity:0.5 }
+
+/* --- Responsive Additions --- */
+@media (max-width: 1024px) {
+  .app-body {
+    flex-direction: column;
+    padding: 16px;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    order: 2;
+  }
+
+  .main-area {
+    order: 1;
+  }
+}
+
+
+
