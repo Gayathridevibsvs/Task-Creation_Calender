@@ -1,0 +1,237 @@
+:root{
+  --bg:#121212;
+  --panel:#1e1e1e;
+  --accent:#4a90e2;
+  --muted:#6b6b6b;
+  --card:#1b1b1b;
+  --text:#f3f3f3;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* App frame */
+.app-header{
+  padding:28px 36px;
+  background:#0f0f0f;
+  border-bottom:1px solid rgba(255,255,255,0.03);
+}
+.app-header h1{
+  margin:0;
+  font-size:40px;
+  letter-spacing:-1px;
+  color:#e6e6e6;
+  font-weight:700;
+}
+
+.app-body{
+  display:flex;
+  gap:20px;
+  padding:22px 28px 40px;
+}
+
+/* Sidebar filters */
+.sidebar{
+  width:300px;
+  background:var(--panel);
+  padding:16px;
+  border-radius:6px;
+  height:calc(100vh - 140px);
+  overflow:auto;
+}
+.sidebar h2{ margin:0 0 12px 0; font-size:18px }
+
+.filters .filter-section{
+  margin-bottom:18px;
+}
+.filters .filter-item{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  margin-top:8px;
+  font-size:15px;
+}
+.filters input[type="text"],
+.filters input[type="search"],
+.filters input[type="radio"],
+.filters input[type="checkbox"]{
+  margin-right:8px;
+}
+.filters input[type="text"], .filters input[type="search"]{
+  width:100%; padding:8px; margin-top:8px; border-radius:6px; border:1px solid rgba(255,255,255,0.05); background: #0f0f0f; color:var(--text)
+}
+
+/* Main area */
+.main-area{
+  flex:1;
+  min-width:0;
+}
+
+/* Calendar */
+.calendar-wrapper{
+  background:transparent;
+  border-radius:8px;
+  padding:12px 12px 20px;
+}
+
+.calendar-topbar{
+  padding:8px 12px 18px;
+  margin-bottom:6px;
+  color:var(--text);
+  font-size:20px;
+}
+
+/* grid that contains 7 headings + days grid */
+.calendar-grid{
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  /* variable number of rows; we handle weekday row + day rows */
+  gap:1px;
+  background: rgba(255,255,255,0.03);
+  position:relative;
+  /* we will let grid auto rows be 88px (day height) */
+  grid-auto-rows: 88px;
+  border-radius:8px;
+  overflow:hidden;
+}
+
+/* weekday headers */
+.weekday{
+  background:#111;
+  color:var(--muted);
+  padding:8px;
+  font-weight:600;
+  font-size:13px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* day cells (these come right after weekday headers in the grid children) */
+.day-cell{
+  background: #fff;
+  color:#222;
+  padding:8px;
+  position:relative;
+  overflow:hidden;
+}
+
+.day-cell.muted{
+  opacity:0.55;
+}
+
+.day-number{
+  font-size:13px;
+  color: #333;
+  font-weight:600;
+}
+
+/* selection highlight for drag-to-create */
+.day-cell.selected{
+  background: linear-gradient(180deg, rgba(74,144,226,0.12), rgba(74,144,226,0.06));
+}
+
+/* task segment (placed as a grid child over day cells) */
+.task-seg{
+  border-radius:8px;
+  padding:6px 10px;
+  color:white;
+  font-size:13px;
+  display:flex;
+  align-items:center;
+  position:relative;
+  z-index:3;
+  cursor:grab;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  margin:6px 6px;
+}
+
+/* The visible area inside task, for text */
+.task-content{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  position:relative;
+}
+
+/* name */
+.task-name{
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  font-weight:600;
+  padding-right:22px;
+}
+
+/* resize handles */
+.resize-handle{
+  width:8px;
+  height:28px;
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  z-index:5;
+  background:transparent;
+}
+.resize-handle.left{ left:6px; cursor:w-resize; }
+.resize-handle.right{ right:6px; cursor:e-resize; }
+
+/* modal */
+.modal-backdrop{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.6);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:999;
+}
+.modal{
+  background:#111;
+  color:var(--text);
+  padding:18px;
+  width:420px;
+  border-radius:8px;
+  box-shadow:0 20px 50px rgba(0,0,0,0.6);
+}
+.modal h3{ margin:0 0 8px 0 }
+.modal label{ display:block; margin-top:10px; font-size:14px }
+.modal input[type="text"], .modal select {
+  width:100%;
+  padding:8px;
+  margin-top:6px;
+  border-radius:6px;
+  border:1px solid rgba(255,255,255,0.06);
+  background:#0f0f0f;
+  color:var(--text);
+}
+.modal-dates { color: #aaa; font-size:13px; margin-top:6px }
+
+.modal-actions{
+  display:flex;
+  gap:10px;
+  margin-top:14px;
+}
+.btn{
+  background:var(--accent);
+  border:none;
+  color:white;
+  padding:8px 12px;
+  border-radius:6px;
+  cursor:pointer;
+}
+.btn-secondary{
+  background:transparent;
+  border:1px solid rgba(255,255,255,0.08);
+}
+
+/* small helpers */
+.ghost { opacity:0.5 }
